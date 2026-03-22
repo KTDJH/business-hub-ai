@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI-Orientierung 2026 – Business Hub AI</title>
+    <meta name="description" content="KI ist überall, aber wo fängt man aktuell an? Verschaffen Sie sich in 45 Minuten Klarheit über den richtigen Einstieg für Ihr Unternehmen.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    dark: { 950: '#06060A', 900: '#0F1117', 800: '#161921', 700: '#1E2130', 600: '#272B3B' },
+                    accent: { DEFAULT: '#10B981', light: '#34D399', dark: '#059669' },
+                    surface: { DEFAULT: '#F4F7F9', card: '#FFFFFF', muted: '#EDF1F5' },
+                },
+                fontFamily: {
+                    sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                },
+            }
+        }
+    }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+
+        /* ===== ANIMATED GRADIENT ORBS ===== */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            will-change: transform;
+        }
+        .orb-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 70%);
+            top: 5%; left: 10%;
+            animation: drift-1 20s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+            top: 40%; right: 5%;
+            animation: drift-2 25s ease-in-out infinite;
+        }
+        @keyframes drift-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -40px) scale(1.08); }
+            66% { transform: translate(-30px, 30px) scale(0.95); }
+        }
+        @keyframes drift-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-40px, 50px) scale(0.92); }
+            66% { transform: translate(30px, -30px) scale(1.06); }
+        }
+
+        /* ===== FLOATING GEOMETRIC PARTICLES ===== */
+        .geo-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .geo-dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: rgba(6,182,212,0.25);
+        }
+        .geo-ring {
+            width: 14px; height: 14px;
+            border: 1.5px solid rgba(6,182,212,0.12);
+            border-radius: 50%;
+        }
+        .geo-cross {
+            width: 10px; height: 10px;
+            position: relative;
+        }
+        .geo-cross::before, .geo-cross::after {
+            content: '';
+            position: absolute;
+            background: rgba(6,182,212,0.15);
+        }
+        .geo-cross::before {
+            width: 10px; height: 1.5px;
+            top: 50%; left: 0;
+            transform: translateY(-50%);
+        }
+        .geo-cross::after {
+            width: 1.5px; height: 10px;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+        }
+        .geo-diamond {
+            width: 8px; height: 8px;
+            background: rgba(6,182,212,0.15);
+            transform: rotate(45deg);
+        }
+        @keyframes float-slow-1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-25px) rotate(180deg); opacity: 0.7; }
+        }
+        @keyframes float-slow-2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(20px) rotate(-90deg); opacity: 0.3; }
+        }
+        @keyframes float-slow-3 {
+            0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+            33% { transform: translate(15px, -10px); opacity: 0.6; }
+            66% { transform: translate(-10px, 15px); opacity: 0.4; }
+        }
+
+        /* ===== SUBTLE GRID PATTERN ===== */
+        .bg-grid {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 56px 56px;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+        .reveal-d4 { transition-delay: 0.4s; }
+        .reveal-d5 { transition-delay: 0.5s; }
+
+        /* ===== CARD HOVER ===== */
+        .card-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 50px rgba(6,182,212,0.08), 0 24px 48px rgba(0,0,0,0.35);
+        }
+
+        /* ===== CTA GLOW ===== */
+        .cta-glow {
+            box-shadow: 0 0 24px rgba(6,182,212,0.3);
+            transition: all 0.3s ease;
+        }
+        .cta-glow:hover {
+            box-shadow: 0 0 36px rgba(6,182,212,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* ===== GRADIENT LINE ===== */
+        .line-gradient {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(6,182,212,0.25), transparent);
+        }
+
+        /* ===== HEADER SCROLL STATE ===== */
+        header.scrolled {
+            background: rgba(15, 17, 23, 0.98) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .card-light { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
+        .card-light:hover { border-color: #10B981; box-shadow: 0 8px 30px rgba(16,185,129,0.08), 0 4px 12px rgba(0,0,0,0.04); transform: translateY(-4px); }
+        .cta-primary { background: #10B981; color: white; box-shadow: 0 4px 14px rgba(16,185,129,0.3); transition: all 0.2s ease; }
+        .cta-primary:hover { background: #059669; box-shadow: 0 6px 20px rgba(16,185,129,0.4); transform: translateY(-1px); }
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, #E2E8F0, transparent); }
+
+        /* ===== NOISE TEXTURE (subtle) ===== */
+        .noise::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            background-size: 256px 256px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===== GRADIENT BORDER CARD ===== */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(16,185,129,0.04), rgba(139,92,246,0.06));
+            border: 1px solid transparent;
+            background-clip: padding-box;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(6,182,212,0.25), rgba(16,185,129,0.15), rgba(139,92,246,0.2));
+            z-index: -1;
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            padding: 1px;
+        }
+
+        /* ===== PULSE RING ===== */
+        .pulse-ring {
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.05); }
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-slate-800 antialiased overflow-x-hidden">
+
+
+<!-- ================================================================== -->
+<!-- HEADER / NAVIGATION                                                -->
+<!-- ================================================================== -->
+<header id="main-header" class="fixed top-0 w-full z-50 bg-dark-900 border-b border-dark-700/50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+
+        <a href="/index.html" class="flex items-center gap-3 group">
+            <div class="w-9 h-9 bg-dark-900 rounded-full flex items-center justify-center"><span class="text-white text-sm font-bold">BH</span></div>
+            <span class="text-[16px] font-bold text-white tracking-tight">Business Hub AI</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="/index.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Start</a>
+            <a href="/loesung.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Lösung</a>
+            <a href="/webinar.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Webinar</a>
+            <a href="/kontakt.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Kontakt</a>
+            <a href="/webinar.html" class="ml-3 px-5 py-2.5 cta-primary text-[13px] font-semibold rounded-lg">
+                Platz sichern
+            </a>
+        </nav>
+
+        <!-- Mobile Toggle -->
+        <button id="menu-btn" class="md:hidden text-white p-2 -mr-2" aria-label="Menü">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100">
+        <nav class="flex flex-col px-6 py-5 gap-1">
+            <a href="/index.html" class="text-slate-600 hover:text-slate-900 py-3">Start</a>
+            <a href="/loesung.html" class="text-slate-600 hover:text-slate-900 py-3">Lösung</a>
+            <a href="/webinar.html" class="text-slate-600 hover:text-slate-900 py-3">Webinar</a>
+            <a href="/kontakt.html" class="text-slate-600 hover:text-slate-900 py-3">Kontakt</a>
+            <a href="/webinar.html" class="mt-3 px-5 py-3.5 bg-accent text-white text-[14px] font-semibold rounded-lg text-center cta-glow">
+                Platz sichern
+            </a>
+        </nav>
+    </div>
+</header>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 1 — HERO                                                   -->
+<!-- ================================================================== -->
+<section class="relative pt-32 pb-24 sm:pt-40 sm:pb-32 bg-grid overflow-hidden">
+
+    <!-- Animated gradient orbs -->
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+
+    <!-- Floating particles -->
+    <div class="geo-particle geo-ring" style="top:18%;left:10%;animation:float-slow-1 18s ease-in-out infinite" aria-hidden="true"></div>
+    <div class="geo-particle geo-dot" style="top:25%;right:14%;animation:float-slow-2 22s ease-in-out infinite" aria-hidden="true"></div>
+    <div class="geo-particle geo-diamond" style="bottom:25%;left:20%;animation:float-slow-3 25s ease-in-out infinite" aria-hidden="true"></div>
+    <div class="geo-particle geo-cross" style="top:50%;right:18%;animation:float-slow-1 20s ease-in-out infinite" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <div class="reveal">
+            <p class="text-cyan text-sm font-semibold tracking-widest uppercase mb-4">Orientierung</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-5">
+                KI-Orientierung 2026
+            </h1>
+            <p class="text-xl sm:text-2xl font-light text-slate-300 mb-6 leading-snug">
+                Klarheit statt Überforderung
+            </p>
+            <p class="text-slate-500 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                Alle reden über KI. Aber was ist für Ihr Unternehmen wirklich relevant? Welche Ansätze sind realistisch, welche sind Hype? Und wo lohnt sich der erste Schritt?
+            </p>
+            <a href="/webinar.html" class="inline-flex items-center gap-3 px-7 py-4 bg-cyan text-white font-semibold rounded-xl cta-glow text-[15px]">
+                Zum Webinar
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- Gradient divider -->
+<div class="divider"></div>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 2 — Das kennen viele Entscheider                           -->
+<!-- ================================================================== -->
+<section class="relative py-24 sm:py-32 bg-white">
+
+    <!-- Floating particles -->
+    <div class="geo-particle geo-dot" style="top:10%;right:12%;animation:float-slow-1 20s ease-in-out infinite" aria-hidden="true"></div>
+    <div class="geo-particle geo-ring" style="bottom:15%;left:10%;animation:float-slow-3 26s ease-in-out infinite;border-color:rgba(6,182,212,0.15)" aria-hidden="true"></div>
+    <div class="geo-particle geo-diamond" style="top:40%;left:5%;animation:float-slow-2 22s ease-in-out infinite" aria-hidden="true"></div>
+    <div class="geo-particle geo-cross" style="bottom:25%;right:8%;animation:float-slow-1 28s ease-in-out infinite" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <!-- LEFT — SVG Illustration: Compass / Map -->
+            <div class="reveal hidden lg:flex items-center justify-center">
+                <div class="relative w-[340px] h-[340px]">
+                    <svg class="w-full h-full" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background circles -->
+                        <circle cx="170" cy="170" r="140" stroke="rgba(6,182,212,0.06)" stroke-width="1" class="pulse-ring"/>
+                        <circle cx="170" cy="170" r="100" stroke="rgba(6,182,212,0.1)" stroke-width="1" class="pulse-ring" style="animation-delay:1s"/>
+                        <circle cx="170" cy="170" r="60" stroke="rgba(6,182,212,0.15)" stroke-width="1" class="pulse-ring" style="animation-delay:2s"/>
+
+                        <!-- Compass needle -->
+                        <path d="M170 130 L185 170 L170 160 Z" fill="rgba(6,182,212,0.35)" stroke="rgba(6,182,212,0.5)" stroke-width="1"/>
+                        <path d="M170 210 L155 170 L170 180 Z" fill="rgba(6,182,212,0.15)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+
+                        <!-- Compass circle -->
+                        <circle cx="170" cy="170" r="50" stroke="rgba(6,182,212,0.25)" stroke-width="1.5" fill="none"/>
+                        <circle cx="170" cy="170" r="5" fill="rgba(6,182,212,0.4)"/>
+
+                        <!-- Direction markers -->
+                        <text x="170" y="110" text-anchor="middle" fill="rgba(6,182,212,0.5)" font-size="10" font-family="Inter" font-weight="600">N</text>
+                        <text x="230" y="174" text-anchor="middle" fill="rgba(6,182,212,0.35)" font-size="9" font-family="Inter">O</text>
+                        <text x="170" y="240" text-anchor="middle" fill="rgba(6,182,212,0.35)" font-size="9" font-family="Inter">S</text>
+                        <text x="110" y="174" text-anchor="middle" fill="rgba(6,182,212,0.35)" font-size="9" font-family="Inter">W</text>
+
+                        <!-- Floating question marks -->
+                        <text x="75" y="95" fill="rgba(6,182,212,0.2)" font-size="18" font-family="Inter" font-weight="700">?</text>
+                        <text x="265" y="100" fill="rgba(16,185,129,0.2)" font-size="14" font-family="Inter" font-weight="700">?</text>
+                        <text x="60" y="260" fill="rgba(139,92,246,0.2)" font-size="16" font-family="Inter" font-weight="700">?</text>
+                        <text x="275" y="270" fill="rgba(6,182,212,0.2)" font-size="20" font-family="Inter" font-weight="700">?</text>
+
+                        <!-- Labels -->
+                        <rect x="55" y="130" rx="4" ry="4" width="40" height="16" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.15)" stroke-width="0.5"/>
+                        <text x="75" y="141" text-anchor="middle" fill="rgba(6,182,212,0.45)" font-size="7" font-family="Inter">Hype?</text>
+
+                        <rect x="240" y="200" rx="4" ry="4" width="55" height="16" fill="rgba(6,182,212,0.08)" stroke="rgba(6,182,212,0.15)" stroke-width="0.5"/>
+                        <text x="267" y="211" text-anchor="middle" fill="rgba(6,182,212,0.45)" font-size="7" font-family="Inter">Relevant?</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- RIGHT — Content -->
+            <div>
+                <div class="reveal mb-8">
+                    <p class="text-cyan text-sm font-semibold tracking-widest uppercase mb-3">Herausforderung</p>
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-5">Das kennen viele Entscheider</h2>
+                    <p class="text-slate-500 text-base leading-relaxed">
+                        Die KI-Landschaft verändert sich wöchentlich. Neue Tools, neue Versprechen, neue Risiken. Gleichzeitig wächst der Druck, nicht den Anschluss zu verpassen. Das Ergebnis: Unsicherheit.
+                    </p>
+                </div>
+
+                <!-- Items -->
+                <div class="space-y-3">
+                    <div class="reveal reveal-d1 flex items-start gap-4 p-5 card-light rounded-xl hover:border-accent transition-all duration-300">
+                        <div class="w-10 h-10 bg-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">Jede Woche ein neues KI-Tool, ein neuer Hype</p>
+                    </div>
+                    <div class="reveal reveal-d2 flex items-start gap-4 p-5 card-light rounded-xl hover:border-accent transition-all duration-300">
+                        <div class="w-10 h-10 bg-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">Ihr Team fragt: „Dürfen wir ChatGPT nutzen?" – und Sie haben keine klare Antwort</p>
+                    </div>
+                    <div class="reveal reveal-d3 flex items-start gap-4 p-5 card-light rounded-xl hover:border-accent transition-all duration-300">
+                        <div class="w-10 h-10 bg-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">Die Angst, den Anschluss zu verpassen, wächst</p>
+                    </div>
+                    <div class="reveal reveal-d4 flex items-start gap-4 p-5 card-light rounded-xl hover:border-accent transition-all duration-300">
+                        <div class="w-10 h-10 bg-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">Eine vorschnelle Entscheidung kann teuer werden – finanziell und datenschutzrechtlich</p>
+                    </div>
+                    <div class="reveal reveal-d5 flex items-start gap-4 p-5 card-light rounded-xl hover:border-accent transition-all duration-300">
+                        <div class="w-10 h-10 bg-cyan/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">Schatten-KI entsteht unkontrolliert in Ihrem Unternehmen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Gradient divider -->
+<div class="divider"></div>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 3 — Was Sie jetzt brauchen: Orientierung                   -->
+<!-- ================================================================== -->
+<section class="relative py-24 sm:py-32 bg-surface">
+
+    <!-- Floating particles -->
+    <div class="geo-particle geo-ring" style="top:20%;right:10%;animation:float-slow-2 21s ease-in-out infinite;border-color:rgba(6,182,212,0.15)" aria-hidden="true"></div>
+    <div class="geo-particle geo-dot" style="bottom:30%;left:8%;animation:float-slow-1 19s ease-in-out infinite" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6">
+
+        <div class="reveal text-center">
+            <p class="text-cyan text-sm font-semibold tracking-widest uppercase mb-3">Lösung</p>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-6">Was Sie jetzt brauchen: Orientierung</h2>
+            <p class="text-slate-500 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-12">
+                Keine Produktdemo. Keine Tool-Vergleichstabelle. Sondern: Eine klare Einordnung, wo Ihr Unternehmen steht und was als Nächstes sinnvoll ist. Herstellerunabhängig. DSGVO-bewusst. Praxisnah.
+            </p>
+        </div>
+
+        <!-- Three pillars -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="reveal reveal-d1 text-center p-6 card-light rounded-xl hover:border-accent transition-all duration-300">
+                <div class="w-14 h-14 bg-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <svg class="w-7 h-7 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+                </div>
+                <h3 class="text-slate-900 font-bold text-base mb-2">Herstellerunabhängig</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Neutrale Einordnung ohne versteckte Produktinteressen</p>
+            </div>
+            <div class="reveal reveal-d2 text-center p-6 card-light rounded-xl hover:border-accent transition-all duration-300">
+                <div class="w-14 h-14 bg-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <svg class="w-7 h-7 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <h3 class="text-slate-900 font-bold text-base mb-2">DSGVO-bewusst</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Datenschutz und Compliance von Anfang an mitgedacht</p>
+            </div>
+            <div class="reveal reveal-d3 text-center p-6 card-light rounded-xl hover:border-accent transition-all duration-300">
+                <div class="w-14 h-14 bg-cyan/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                    <svg class="w-7 h-7 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                </div>
+                <h3 class="text-slate-900 font-bold text-base mb-2">Praxisnah</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Konkrete Einordnung statt theoretischer Konzepte</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Gradient divider -->
+<div class="divider"></div>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 4 — Next Step / CTA                                        -->
+<!-- ================================================================== -->
+<section class="relative py-24 sm:py-32 bg-white">
+
+    <!-- Background glow -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[350px] pointer-events-none opacity-40" style="background: radial-gradient(ellipse, rgba(6,182,212,0.1) 0%, rgba(16,185,129,0.04) 40%, transparent 70%);"></div>
+
+    <!-- Floating particles -->
+    <div class="geo-particle geo-ring" style="top:15%;left:12%;animation:float-slow-1 23s ease-in-out infinite;border-color:rgba(6,182,212,0.15)" aria-hidden="true"></div>
+    <div class="geo-particle geo-dot" style="bottom:20%;right:15%;animation:float-slow-3 19s ease-in-out infinite" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+
+        <div class="text-center reveal mb-10">
+            <p class="text-cyan text-sm font-semibold tracking-widest uppercase mb-3">Webinar</p>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-5">45 Minuten, die Klarheit schaffen</h2>
+            <p class="text-slate-500 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+                In unserem kostenlosen Webinar bekommen Sie genau diese Orientierung. Wir ordnen ein, was realistisch ist, was Hype ist und welcher Einstieg zu Ihrer Situation passt. Ohne Verkaufsdruck, ohne Verpflichtung.
+            </p>
+        </div>
+
+        <!-- CTA Card -->
+        <div class="reveal reveal-d2 gradient-border rounded-2xl p-8 sm:p-10 text-center">
+            <div class="w-16 h-16 bg-cyan/15 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <svg class="w-8 h-8 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-slate-900 text-xl font-bold mb-3">Kostenloses Webinar</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-8 max-w-md mx-auto">
+                45 Minuten Live-Orientierung mit Q&A. Verschaffen Sie sich Klarheit, wo Ihr Unternehmen bei KI steht.
+            </p>
+            <a href="/webinar.html" class="inline-flex items-center gap-3 px-8 py-4 bg-cyan text-white font-semibold rounded-xl cta-glow text-[15px]">
+                Kostenlos am Webinar teilnehmen
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================================================== -->
+<!-- FOOTER                                                              -->
+<!-- ================================================================== -->
+<footer class="bg-dark-900 border-t border-slate-200">
+
+    <!-- Trust Badges Strip -->
+    <div class="border-b border-white/[0.04]">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+                <span class="flex items-center gap-2 text-[13px] text-slate-500">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    DSGVO-konform
+                </span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+                    Made in Germany
+                </span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>
+                    Kein Vendor Lock-in
+                </span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500">
+                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    EU AI Act-kompatibel
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Content -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <svg width="24" height="30" viewBox="0 0 42 52" fill="none" xmlns="http://www.w3.org/2000/svg" class="opacity-40">
+                    <path opacity="0.54" d="M7 22.9C2.9 30 4.9 39 11.5 43.7C12.2 44.2 13.1 43.9 13.5 43.3L27.9 18.5C28.3 17.8 28 16.9 27.3 16.6C19.9 13.1 11.1 15.8 7 22.9Z" fill="white"/>
+                    <path opacity="0.54" d="M35.1 28C38.8 20.7 36.3 11.8 29.5 7.5C28.8 7.1 27.9 7.3 27.6 8.1L14.6 33.6C14.2 34.3 14.6 35.2 15.3 35.5C22.7 38.5 31.4 35.3 35.1 28Z" fill="white"/>
+                </svg>
+                <span class="text-sm text-slate-600">Business Hub AI — By Hermann-Consult & Co. GmbH</span>
+            </div>
+            <div class="flex items-center gap-6 text-sm text-slate-600">
+                <a href="/impressum.html" class="hover:text-slate-300 transition-colors duration-200">Impressum</a>
+                <a href="/datenschutz.html" class="hover:text-slate-300 transition-colors duration-200">Datenschutz</a>
+                <a href="/agb.html" class="hover:text-slate-300 transition-colors duration-200">AGB</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ================================================================== -->
+<!-- SCRIPTS                                                             -->
+<!-- ================================================================== -->
+<script>
+    // ===== Mobile Menu Toggle =====
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+
+    menuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden', !isOpen);
+        iconClose.classList.toggle('hidden', isOpen);
+    });
+
+    // ===== Header Scroll Effect =====
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }, { passive: true });
+
+    // ===== Scroll Reveal (Intersection Observer) =====
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -60px 0px'
+    });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===== Smooth Scroll for Anchor Links =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Hub AI – Weil KI-Lösungen so individuell wie Ihr Unternehmen sind.</title>
+    <meta name="description" content="KI-Orientierung für Ihr Unternehmen: finden Sie heraus, wie Sie von AI profitieren können. Rechtssicher. Cybersicher. Zukunftssicher.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    dark: { 950: '#06060A', 900: '#0F1117', 800: '#161921', 700: '#1E2130', 600: '#272B3B' },
+                    accent: { DEFAULT: '#10B981', light: '#34D399', dark: '#059669' },
+                    surface: { DEFAULT: '#F4F7F9', card: '#FFFFFF', muted: '#EDF1F5' },
+                },
+                fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'] },
+            }
+        }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+
+        /* ===== HERO CARD GLOW ===== */
+        .hero-card {
+            background: linear-gradient(135deg, #0F1117 0%, #161921 50%, #1E2130 100%);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+        }
+
+        /* ===== ANIMATED GRADIENT ORBS (hero only) ===== */
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; will-change: transform; }
+        .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%); top: 5%; left: 0%; animation: drift-1 20s ease-in-out infinite; }
+        .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%); bottom: 0%; right: 0%; animation: drift-2 25s ease-in-out infinite; }
+        @keyframes drift-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,-30px) scale(1.05)} }
+        @keyframes drift-2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-30px,20px) scale(0.95)} }
+
+        /* ===== PRODUCT MOCKUP ===== */
+        .mockup-glow { box-shadow: 0 0 60px rgba(16,185,129,0.06), 0 24px 48px rgba(0,0,0,0.4); }
+        .mockup-float { animation: mockup-hover 6s ease-in-out infinite; }
+        @keyframes mockup-hover { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+        /* Typing dots */
+        .typing-dot { display:inline-block; width:5px; height:5px; border-radius:50%; background:#64748b; animation:bounce-dot 1.4s infinite; }
+        .typing-dot:nth-child(2){animation-delay:.2s} .typing-dot:nth-child(3){animation-delay:.4s}
+        @keyframes bounce-dot { 0%,60%,100%{transform:translateY(0);opacity:.3} 30%{transform:translateY(-5px);opacity:1} }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal { opacity:0; transform:translateY(30px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.active { opacity:1; transform:translateY(0); }
+        .reveal-d1{transition-delay:.1s} .reveal-d2{transition-delay:.2s} .reveal-d3{transition-delay:.3s} .reveal-d4{transition-delay:.4s} .reveal-d5{transition-delay:.5s}
+
+        /* ===== LIGHT THEME CARDS ===== */
+        .card-light {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+        }
+        .card-light:hover {
+            border-color: #10B981;
+            box-shadow: 0 8px 30px rgba(16,185,129,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            transform: translateY(-4px);
+        }
+
+        /* ===== CTA ===== */
+        .cta-primary {
+            background: #10B981;
+            color: white;
+            box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+            transition: all 0.2s ease;
+        }
+        .cta-primary:hover {
+            background: #059669;
+            box-shadow: 0 6px 20px rgba(16,185,129,0.4);
+            transform: translateY(-1px);
+        }
+
+        /* ===== HEADER ===== */
+        header.scrolled {
+            background: rgba(15, 17, 23, 0.98) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* ===== SECTION DIVIDER ===== */
+        .divider { height: 1px; background: linear-gradient(90deg, transparent, #E2E8F0, transparent); }
+    </style>
+</head>
+
+<body class="bg-surface text-slate-800 antialiased overflow-x-hidden">
+
+<!-- ================================================================== -->
+<!-- HEADER — Light theme, glassmorphism                                -->
+<!-- ================================================================== -->
+<header id="main-header" class="fixed top-0 w-full z-50 bg-dark-900 border-b border-dark-700/50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+        <a href="/index.html" class="flex items-center gap-3 group">
+            <div class="w-9 h-9 bg-dark-900 rounded-full flex items-center justify-center">
+                <span class="text-white text-sm font-bold">BH</span>
+            </div>
+            <span class="text-[16px] font-bold text-white tracking-tight">Business Hub AI</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="/index.html" class="text-[14px] text-accent font-medium">Start</a>
+            <a href="/webinar.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Webinar</a>
+            <a href="/loesung.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Lösung</a>
+            <a href="/kontakt.html" class="text-[14px] text-slate-400 hover:text-white transition-colors">Kontakt</a>
+            <a href="/webinar.html" class="ml-3 px-5 py-2.5 cta-primary text-[13px] font-semibold rounded-lg">Platz sichern</a>
+        </nav>
+        <button id="menu-btn" class="md:hidden text-white p-2 -mr-2" aria-label="Menü">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100">
+        <nav class="flex flex-col px-6 py-5 gap-1">
+            <a href="/index.html" class="text-accent font-medium py-3">Start</a>
+            <a href="/webinar.html" class="text-slate-600 hover:text-slate-900 py-3">Webinar</a>
+            <a href="/loesung.html" class="text-slate-600 hover:text-slate-900 py-3">Lösung</a>
+            <a href="/kontakt.html" class="text-slate-600 hover:text-slate-900 py-3">Kontakt</a>
+            <a href="/webinar.html" class="mt-3 px-5 py-3.5 cta-primary text-[14px] font-semibold rounded-lg text-center">Platz sichern</a>
+        </nav>
+    </div>
+</header>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 1 — HERO (Dark card on light background)                   -->
+<!-- ================================================================== -->
+<section class="pt-28 pb-8 sm:pt-32 sm:pb-12 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="hero-card rounded-3xl relative overflow-hidden px-8 py-14 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+
+            <!-- Orbs (inside dark card) -->
+            <div class="orb orb-1" aria-hidden="true"></div>
+            <div class="orb orb-2" aria-hidden="true"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- LEFT — Text -->
+                <div class="max-w-xl">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-accent/15 text-accent-dark text-xs font-semibold rounded-full border border-accent/20 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        Live-Orientierung
+                    </span>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-[3.25rem] font-extrabold tracking-tight leading-[1.1] text-white mb-4">
+                        Business Hub AI
+                    </h1>
+                    <p class="text-xl sm:text-2xl font-light text-slate-300 leading-snug mb-6">
+                        Weil KI-Lösungen so individuell sind wie Ihr Unternehmen.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-2.5 mb-6">
+                        <span class="px-3 py-1 text-xs font-medium text-slate-300 rounded-full border border-white/15">Rechtssicher</span>
+                        <span class="px-3 py-1 text-xs font-medium text-slate-300 rounded-full border border-white/15">Cybersicher</span>
+                        <span class="px-3 py-1 text-xs font-medium text-slate-300 rounded-full border border-white/15">Zukunftssicher</span>
+                    </div>
+
+                    <p class="text-slate-400 text-base leading-relaxed mb-8">
+                        Hier finden Sie heraus, wo Sie stehen – und was der sinnvollste nächste Schritt in Richtung KI ist. Keine Verkaufsshow. Sondern ein strukturierter Einstieg.
+                    </p>
+
+                    <a href="#orientation" class="inline-flex items-center gap-3 px-7 py-3.5 cta-primary font-semibold rounded-xl text-[15px]">
+                        Finden Sie Ihren Einstieg
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                    </a>
+
+                    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-8">
+                        <span class="flex items-center gap-1.5 text-xs text-slate-500"><svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>DSGVO-konform</span>
+                        <span class="flex items-center gap-1.5 text-xs text-slate-500"><svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Made in Germany</span>
+                        <span class="flex items-center gap-1.5 text-xs text-slate-500"><svg class="w-3.5 h-3.5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Kein Vendor Lock-in</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT — Mockup (desktop) -->
+                <div class="hidden lg:block relative">
+                    <div class="mockup-float mockup-glow rounded-2xl border border-white/[0.08] bg-dark-800 overflow-hidden">
+                        <div class="flex items-center gap-2 px-5 py-3.5 bg-dark-700 border-b border-white/[0.06]">
+                            <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                            <span class="ml-3 text-[11px] text-slate-500 font-medium">Business Hub AI — Inhouse KI-Chat</span>
+                        </div>
+                        <div class="flex">
+                            <div class="w-[160px] bg-dark-700/50 border-r border-white/[0.04] p-3 flex flex-col gap-1 shrink-0">
+                                <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-accent/10 text-accent-dark text-[11px] font-medium">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>KI-Chat
+                                </div>
+                                <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 text-[11px]">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>Wissen
+                                </div>
+                                <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-500 text-[11px]">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Analysen
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col min-h-[300px]">
+                                <div class="flex-1 p-4 space-y-3 overflow-hidden">
+                                    <div class="flex justify-end"><div class="max-w-[250px] bg-accent/15 border border-accent/20 rounded-2xl rounded-br-md px-3.5 py-2.5"><p class="text-[11px] text-slate-200 leading-relaxed">Analysiere den Vertrag und fasse die Klauseln zusammen.</p></div></div>
+                                    <div class="flex justify-start"><div class="max-w-[270px] bg-dark-600 border border-white/[0.06] rounded-2xl rounded-bl-md px-3.5 py-2.5 space-y-2"><p class="text-[11px] text-slate-300 leading-relaxed">3 Klauseln identifiziert:</p><div class="space-y-1"><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-accent/20 flex items-center justify-center"><svg class="w-2 h-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span class="text-[10px] text-slate-400">§4 Haftung — Risiko: mittel</span></div><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-yellow-500/20 flex items-center justify-center"><svg class="w-2 h-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span class="text-[10px] text-slate-400">§7 DSGVO — konform</span></div><div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-accent/20 flex items-center justify-center"><svg class="w-2 h-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span class="text-[10px] text-slate-400">§12 Laufzeit — 24 Mo.</span></div></div></div></div>
+                                    <div class="flex justify-start"><div class="bg-dark-600 border border-white/[0.06] rounded-2xl rounded-bl-md px-3.5 py-2.5"><div class="flex items-center gap-1.5"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div></div>
+                                </div>
+                                <div class="p-3 border-t border-white/[0.04]"><div class="flex items-center gap-3 bg-dark-700 rounded-xl px-3 py-2.5 border border-white/[0.06]"><span class="text-[11px] text-slate-600 flex-1">Nachricht eingeben...</span><div class="w-6 h-6 bg-accent/20 rounded-lg flex items-center justify-center"><svg class="w-3 h-3 text-accent-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 2 — ORIENTATION TILES (Light cards)                        -->
+<!-- ================================================================== -->
+<section id="orientation" class="py-20 sm:py-28 px-6">
+    <div class="max-w-7xl mx-auto">
+
+        <div class="flex items-center gap-2.5 mb-10 reveal">
+            <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+            <h2 class="text-sm font-semibold text-slate-900 tracking-wide uppercase">Wo stehen Sie gerade?</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Tile 1 -->
+            <a href="/klein-starten.html" class="group card-light p-8 reveal reveal-d1 block">
+                <span class="inline-block px-3 py-1 bg-accent/10 text-accent-dark text-[11px] font-semibold rounded-full mb-5">Pilot</span>
+                <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-dark transition-colors">Klein starten</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                    Risikoarm einsteigen. Ein überschaubares Pilotprojekt, das Quick Wins liefert – ohne Overengineering.
+                </p>
+                <span class="inline-flex items-center gap-2 text-accent-dark font-semibold text-sm group-hover:gap-3 transition-all">
+                    Pilot starten <span class="text-lg">→</span>
+                </span>
+            </a>
+
+            <!-- Tile 2 -->
+            <a href="/ki-orientierung-2026.html" class="group card-light p-8 reveal reveal-d2 block">
+                <span class="inline-block px-3 py-1 bg-accent/10 text-accent-dark text-[11px] font-semibold rounded-full mb-5">Strategie</span>
+                <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-dark transition-colors">KI-Orientierung 2026</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                    Tool-Chaos sortieren. Hype von Substanz trennen. Eine eigene Entscheidungslogik entwickeln, die unabhängig macht.
+                </p>
+                <span class="inline-flex items-center gap-2 text-accent-dark font-semibold text-sm group-hover:gap-3 transition-all">
+                    Orientierung starten <span class="text-lg">→</span>
+                </span>
+            </a>
+
+            <!-- Tile 3 -->
+            <a href="/ki-basics-entscheider.html" class="group card-light p-8 reveal reveal-d3 block">
+                <span class="inline-block px-3 py-1 bg-accent/10 text-accent-dark text-[11px] font-semibold rounded-full mb-5">Grundlagen</span>
+                <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-accent-dark transition-colors">KI-Basics für Entscheider</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                    Was Geschäftsführung und Führung wirklich wissen müssen. Verantwortung, Möglichkeiten, klare Rahmenbedingungen.
+                </p>
+                <span class="inline-flex items-center gap-2 text-accent-dark font-semibold text-sm group-hover:gap-3 transition-all">
+                    Grundlagen lernen <span class="text-lg">→</span>
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 2b — WAS PASSIERT / WAS NICHT PASSIERT                     -->
+<!-- ================================================================== -->
+<section class="py-16 sm:py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+
+            <div class="card-light p-8">
+                <div class="flex items-center gap-2.5 mb-6">
+                    <span class="w-3 h-3 rounded-full bg-accent"></span>
+                    <h3 class="text-lg font-bold text-slate-900">Was passiert</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-slate-600 text-sm leading-relaxed">Ehrliche Einordnung, wo KI für Sie Sinn ergibt</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-slate-600 text-sm leading-relaxed">Klare Orientierung statt Tool-Chaos</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-slate-600 text-sm leading-relaxed">Praxisnahe Empfehlungen, zugeschnitten auf Ihre Situation</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-slate-600 text-sm leading-relaxed">DSGVO-konformer, strukturierter Einstieg</span></li>
+                </ul>
+            </div>
+
+            <div class="card-light p-8">
+                <div class="flex items-center gap-2.5 mb-6">
+                    <span class="w-3 h-3 rounded-full bg-slate-300"></span>
+                    <h3 class="text-lg font-bold text-slate-900">Was nicht passiert</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-500 text-sm leading-relaxed">Keine Verkaufsshow, kein Produktdruck</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-500 text-sm leading-relaxed">Kein Vendor Lock-in, keine Abhängigkeit</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-500 text-sm leading-relaxed">Keine unrealistischen Versprechen</span></li>
+                    <li class="flex items-start gap-3"><svg class="w-5 h-5 text-slate-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg><span class="text-slate-500 text-sm leading-relaxed">Keine versteckten Kosten oder Abos</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="divider"></div>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 3 — TARGET AUDIENCE                                        -->
+<!-- ================================================================== -->
+<section id="audience" class="py-20 sm:py-28 px-6 bg-surface">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4">Für wen ist Business Hub AI?</h2>
+            <p class="text-slate-500 text-base">Unsere Lösung richtet sich an Unternehmen, die KI strategisch und sicher einsetzen wollen.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="reveal reveal-d1 card-light p-5 flex items-start gap-4">
+                <svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600 text-sm leading-relaxed">Unternehmen, die durch sicheren KI-Einsatz ihre Wirtschaftlichkeit steigern möchten</span>
+            </div>
+            <div class="reveal reveal-d2 card-light p-5 flex items-start gap-4">
+                <svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600 text-sm leading-relaxed">Unternehmen, die Schatten-KI beenden möchten</span>
+            </div>
+            <div class="reveal reveal-d3 card-light p-5 flex items-start gap-4">
+                <svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600 text-sm leading-relaxed">Teams mit konkreten Anwendungsfällen (Dokumentenanalyse, Support, Recherche)</span>
+            </div>
+            <div class="reveal reveal-d4 card-light p-5 flex items-start gap-4">
+                <svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600 text-sm leading-relaxed">Organisationen mit hohen Datenschutz- & Compliance-Anforderungen</span>
+            </div>
+            <div class="reveal reveal-d5 card-light p-5 flex items-start gap-4 sm:col-span-2 sm:max-w-[calc(50%-0.5rem)]">
+                <svg class="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600 text-sm leading-relaxed">Firmen, die unabhängig von nicht-deutschen Anbietern bleiben möchten</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="divider"></div>
+
+
+<!-- ================================================================== -->
+<!-- SECTION 4 — NEXT STEP                                              -->
+<!-- ================================================================== -->
+<section id="next-step" class="py-20 sm:py-28 px-6 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+        <div class="reveal">
+            <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-6">Der nächste Schritt</h2>
+            <p class="text-slate-500 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+                Vereinbaren Sie ein unverbindliches Erstgespräch, melden Sie sich für unser Webinar an oder entdecken Sie unsere Lösung.
+            </p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal reveal-d2">
+            <a href="/webinar.html" class="w-full sm:w-auto px-8 py-4 cta-primary font-semibold rounded-xl text-center">Platz sichern →</a>
+            <a href="/kontakt.html" class="w-full sm:w-auto px-8 py-4 border-2 border-accent/30 text-accent-dark font-semibold rounded-xl hover:bg-accent/5 transition-all text-center">Termin buchen</a>
+            <a href="/loesung.html" class="text-slate-500 hover:text-slate-900 font-medium transition-colors underline underline-offset-4 py-4">Lösung ansehen</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ================================================================== -->
+<!-- FOOTER — Dark for contrast                                         -->
+<!-- ================================================================== -->
+<footer class="bg-dark-900 border-t border-slate-200">
+    <div class="border-b border-white/[0.06]">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+                <span class="flex items-center gap-2 text-[13px] text-slate-500"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>DSGVO-konform</span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>Made in Germany</span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/></svg>Kein Vendor Lock-in</span>
+                <span class="flex items-center gap-2 text-[13px] text-slate-500"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>EU AI Act-kompatibel</span>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 py-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 bg-white/10 rounded-full flex items-center justify-center"><span class="text-white text-[10px] font-bold">BH</span></div>
+                <span class="text-sm text-slate-500">Business Hub AI — By Hermann-Consult & Co. GmbH</span>
+            </div>
+            <div class="flex items-center gap-6 text-sm text-slate-500">
+                <a href="/impressum.html" class="hover:text-slate-300 transition-colors">Impressum</a>
+                <a href="/datenschutz.html" class="hover:text-slate-300 transition-colors">Datenschutz</a>
+                <a href="/agb.html" class="hover:text-slate-300 transition-colors">AGB</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ================================================================== -->
+<!-- SCRIPTS                                                             -->
+<!-- ================================================================== -->
+<script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    menuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        iconOpen.classList.toggle('hidden', !isOpen);
+        iconClose.classList.toggle('hidden', isOpen);
+    });
+
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) { e.preventDefault(); const t = document.querySelector(this.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    });
+</script>
+</body>
+</html>
