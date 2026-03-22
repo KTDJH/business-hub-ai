@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do sed:*)",
+      "Bash(echo \"Mobile nav fixed: $f\")",
+      "Bash(done)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(echo \"Header bg fixed: $f\")",
+      "Bash(echo \"Header dark bg: $f\")",
+      "Bash(echo \"Header text: $f\")",
+      "Bash(echo \"Scroll state: $f\")",
+      "Bash(sed -i -e 's|text-slate-100|text-slate-700|g' -e 's|text-accent-light|text-accent-dark|g' -e 's|text-cyan-light|text-cyan|g' -e 's|text-violet-light|text-violet|g' -e 's|bg-dark-800/60 backdrop-blur-sm|bg-white|g' index.html)",
+      "Bash(sed -i -e 's|text-slate-100|text-slate-700|g' -e 's|text-slate-200|text-slate-600|g' loesung.html)",
+      "Bash(do echo:*)",
+      "Bash(echo \"Fixed: $f\")"
+    ]
+  }
+}
